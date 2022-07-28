@@ -81,9 +81,18 @@ extension FavoritesViewController: UITableViewDataSource {
             guard let imageData = imageData else { return }
 
             DispatchQueue.main.async {
-                //self.posterImageView.image = UIImage(data: imageData)
                 self.imageCache[indexPath.row] = imageData
             }
+        }
+        
+        albumVM.albumImageCache(for: albumNameCache[indexPath.row]!) { imageData in
+            
+            guard let imageData = imageData else { return }
+            
+            DispatchQueue.main.async {
+                self.imageCache[indexPath.row] = imageData
+            }
+            
         }
         
         cell.configure(albumVM: self.albumVM, index: indexPath.row)

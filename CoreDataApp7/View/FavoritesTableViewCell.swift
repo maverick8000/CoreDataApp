@@ -11,7 +11,7 @@ class FavoritesTableViewCell: UITableViewCell {
 
     static let reuseId = "\(AlbumTableViewCell.self)"
         
-    let albumVM: AlbumViewModel = AlbumViewModel(networkManager: NetworkManager())
+    let albumVM: FavoritesAlbumViewModel = FavoritesAlbumViewModel(networkManager: NetworkManager())
     var albumImage: Data?
     var artistName: String?
     var albumName: String?
@@ -172,7 +172,7 @@ class FavoritesTableViewCell: UITableViewCell {
         self.posterImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
     }
     
-    func configure(albumVM: AlbumViewModelType, index: Int) {
+    func configure(albumVM: FavoritesAlbumViewModelType, index: Int) {
         
         self.artistName = albumVM.artistName(for: index)
                 
@@ -182,13 +182,25 @@ class FavoritesTableViewCell: UITableViewCell {
         
         self.albumNameLabel.text = albumVM.albumName(for: index)
         
-        albumVM.albumImage(for: index) { imageData in
+//        albumVM.albumImage(for: index) { imageData in
+//            guard let imageData = imageData else { return }
+//
+//            self.albumImage = imageData
+//            DispatchQueue.main.async {
+//                self.posterImageView.image = UIImage(data: imageData)
+//            }
+//        }
+        
+        albumVM.albumImageCache(for: self.albumName ?? "Drake") { imageData in
+            
             guard let imageData = imageData else { return }
-
+            
             self.albumImage = imageData
+            
             DispatchQueue.main.async {
                 self.posterImageView.image = UIImage(data: imageData)
             }
+            
         }
         
     }

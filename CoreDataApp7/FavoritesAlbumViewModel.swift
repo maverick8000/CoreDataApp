@@ -16,12 +16,14 @@ protocol FavoritesAlbumViewModelType {
     func albumImage(for index: Int, completion: @escaping (Data?) -> Void)
     func artistName(for index: Int) -> String?
     func albumName(for index: Int) -> String?
+    func albumImageCache(for str: String, completion: @escaping (Data?) -> Void)
     
 }
 
-class FavoritesAlbumViewModel: AlbumViewModelType {
+class FavoritesAlbumViewModel: FavoritesAlbumViewModelType {
     
     var manager: CoreDataManager
+    var favoritesImageCache: [String: Data] = [:]
     var musicAlbum: MusicAlbum? {
         didSet {
             self.updateHandler?()
@@ -77,7 +79,7 @@ class FavoritesAlbumViewModel: AlbumViewModelType {
 // ############################################################################################################################################################################### //
           
                 let myImage = UIImage(named: "albumDefaultIcon")
-                //let myData: Data = myImage!.pngData()!
+                let myData: Data = myImage!.pngData()!
                 
                 let album1 = Album(artistName: "artistName1", name: "albumName1", artworkUrl100: "https://is5-ssl.mzstatic.com/image/thumb/Music112/v4/3e/04/eb/3e04ebf6-370f-f59d-ec84-2c2643db92f1/196626945068.jpg/100x100bb.jpg")
                 let album2 = Album(artistName: "artistName2", name: "albumName2", artworkUrl100: "https://is5-ssl.mzstatic.com/image/thumb/Music112/v4/3e/04/eb/3e04ebf6-370f-f59d-ec84-2c2643db92f1/196626945068.jpg/100x100bb.jpg")
@@ -106,8 +108,11 @@ class FavoritesAlbumViewModel: AlbumViewModelType {
                         
                         let tempArtistName: String = element.artistName ?? "Unknown artist"
                         let tempAlbumName: String = element.albumName ?? "Unknown album"
+                        let tempAlbumImage: Data = element.albumImage ?? myData
                         
                         let tempTemp = Album(artistName: tempArtistName, name: tempAlbumName, artworkUrl100: "https://is5-ssl.mzstatic.com/image/thumb/Music112/v4/3e/04/eb/3e04ebf6-370f-f59d-ec84-2c2643db92f1/196626945068.jpg/100x100bb.jpg")
+                        
+                        self.favoritesImageCache[tempAlbumName] = tempAlbumImage
                         
                         albumes.append(tempTemp)
                         
@@ -139,6 +144,17 @@ class FavoritesAlbumViewModel: AlbumViewModelType {
     func albumName(for index: Int) -> String? {
         guard index < self.count else { return nil }
         return self.albums[index].name
+    }
+    
+    func albumImageCache(for str: String, completion: @escaping (Data?) -> Void) {
+        
+        let myImage = UIImage(named: "albumDefaultIcon")
+        let myData: Data = myImage!.pngData()!
+        
+        let currentImage: Data = self.favoritesImageCache[str] ?? myData
+        
+        completion(currentImage)
+        
     }
     
     func albumImage(for index: Int, completion: @escaping (Data?) -> Void) {

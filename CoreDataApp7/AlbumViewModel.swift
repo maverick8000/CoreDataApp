@@ -157,6 +157,14 @@ extension AlbumViewModel {
         self.musicAlbum = nil
     }
     
+    func deleteAlbum2() {
+        print(" \n\n\n\n\n XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n\n\n\n\n")
+        
+        guard let album = self.musicAlbum else { return }
+        self.manager.deleteAlbum(album)
+        self.musicAlbum = nil
+    }
+    
     func deleteAll() {
         self.manager.deleteAll()
         self.musicAlbum = nil
