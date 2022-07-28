@@ -138,7 +138,8 @@ class AlbumTableViewCell: UITableViewCell {
         self.progButton2.backgroundColor = UIColorFromRGB(rgbValue: 0x404040)
         self.progButton2.setTitleColor(.white, for: .normal)
         
-        self.albumVM.deleteAlbum2()
+        //self.albumVM.deleteAlbum2()
+        self.albumVM.deleteAlbumByAlbumName(albumName: self.albumName ?? "Un Verano Sin Ti")
         
     }
     

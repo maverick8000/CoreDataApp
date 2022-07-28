@@ -200,5 +200,10 @@ extension AlbumViewModel {
         return self.manager.findAll()        
     }
     
+    func deleteAlbumByAlbumName(albumName: String) -> Void {
+        
+        self.manager.newDelete(albumName: albumName)
+    }
+    
     
 }

@@ -153,7 +153,9 @@ class ViewController: UIViewController {
     func testButton2Pressed(sender: UIButton) {
         print("Test button 2 was tapped!!!")
         //print("#### \(self.albumVM.deleteAlbum())")
+        
         self.albumVM.deleteAll()
+        //self.albumVM.manager.newDelete()
     }
     
     func UIColorFromRGB(rgbValue: UInt) -> UIColor {

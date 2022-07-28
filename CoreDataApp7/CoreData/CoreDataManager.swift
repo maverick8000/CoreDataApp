@@ -92,6 +92,40 @@ class CoreDataManager {
         }
     }
     
+    func newDelete(albumName: String) -> Void {
+        
+        let fetchRequest: NSFetchRequest<MusicAlbum>
+        fetchRequest = MusicAlbum.fetchRequest()
+
+        fetchRequest.predicate = NSPredicate(
+            format: "albumName LIKE %@", albumName
+        )
+        
+        let context = persistentContainer.viewContext
+
+        do {
+            //let objects = try context.fetch(fetchRequest)
+            //return objects
+            if let result = try? context.fetch(fetchRequest) {
+                for object in result {
+                    context.delete(object)
+                }
+            }
+
+            do {
+                try context.save()
+                
+            } catch {
+                //Handle error
+                print("#### Error")
+            }
+        } catch {
+            //return nil
+            print("#### Error")
+        }
+        
+    }
+    
     func fetchSingle() -> [MusicAlbum]? {
         
         print("\n\n\n gg# \n\n\n")
