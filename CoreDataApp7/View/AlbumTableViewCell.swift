@@ -10,9 +10,7 @@ import UIKit
 class AlbumTableViewCell: UITableViewCell {
 
     static let reuseId = "\(AlbumTableViewCell.self)"
-    
-    //let text: String = "Like me"
-    
+        
     let albumVM: AlbumViewModel = AlbumViewModel(networkManager: NetworkManager())
     var albumImage: Data?
     var artistName: String?
@@ -34,8 +32,7 @@ class AlbumTableViewCell: UITableViewCell {
         label.numberOfLines = 0
         label.textAlignment = .center
         label.text = "Album Artist Name"
-        //label.backgroundColor = .magenta
-        //label.layer.cornerRadius = 12
+
         return label
     }()
     
@@ -45,9 +42,8 @@ class AlbumTableViewCell: UITableViewCell {
         label.numberOfLines = 0
         label.textAlignment = .center
         label.text = "Here goes the Album's Title"
-        //label.backgroundColor = .green
-        //label.layer.cornerRadius = 12
         label.font = UIFont.systemFont(ofSize: 16.0)
+        
         return label
     }()
     
@@ -79,44 +75,8 @@ class AlbumTableViewCell: UITableViewCell {
         return button
     }()
     
-    /* ############################################################################################################################## */
-    
-//    @objc
-//    func progButtonPressed() {
-//
-//        print("Favorite Button tapped!!!")
-//        self.swapFavorite = !swapFavorite
-//        if swapFavorite
-//        {
-//            self.progButton.backgroundColor = .magenta
-//        }
-//        else
-//        {
-//            self.progButton.backgroundColor = UIColorFromRGB(rgbValue: 0xFFF0F5)
-//        }
-//
-//        self.albumVM.makeMusicAlbum(albumImage: self.albumImage!, artistName: self.artistName!)
-//
-//    }
-    
     @objc
     func progButtonPressed() {
-        
-//        print("Favorite Button tapped!!!")
-//        self.swapFavorite = !swapFavorite
-//        if swapFavorite
-//        {
-//            self.progButton.backgroundColor = .magenta
-//            self.albumVM.makeMusicAlbum(albumImage: self.albumImage!, artistName: self.artistName!)
-//        }
-//        else
-//        {
-//            self.progButton.backgroundColor = UIColorFromRGB(rgbValue: 0xFFF0F5)
-//            self.albumVM.deleteAlbum()
-//        }
-    
-        //self.albumVM.deleteAlbum()
-        //self.albumVM.deleteAll()
         
         print("Favorite Button tapped!!!")
         
@@ -130,22 +90,18 @@ class AlbumTableViewCell: UITableViewCell {
     
     @objc
     func progButtonPressed2() {
-        
-        //self.albumVM.makeMusicAlbum(albumImage: self.albumImage!, artistName: self.artistName!)
-        
+                
         print("Unfavorite Button tapped!!!")
         
         self.progButton2.backgroundColor = UIColorFromRGB(rgbValue: 0x404040)
         self.progButton2.setTitleColor(.white, for: .normal)
         
-        //self.albumVM.deleteAlbum2()
         self.albumVM.deleteAlbumByAlbumName(albumName: self.albumName ?? "Un Verano Sin Ti")
         
     }
     
     @objc fileprivate func tapMeAnimatedButtonPressed(sender: UIButton) {
         
-        //print("My name is: \(self.text)")
         self.animateView(sender)
         
     }
@@ -200,8 +156,7 @@ class AlbumTableViewCell: UITableViewCell {
         vStackView2.addArrangedSubview(progButton)
         vStackView2.addArrangedSubview(progButton2)
         hStackView.addArrangedSubview(self.posterImageView)
-        //hStackView.addArrangedSubview(self.artistNameLabel)
-        //hStackView.addArrangedSubview(self.progButton)
+
         hStackView.addArrangedSubview(vStackView)
         hStackView.addArrangedSubview(vStackView2)
         

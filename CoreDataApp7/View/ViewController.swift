@@ -20,7 +20,6 @@ class ViewController: UIViewController {
         button.setTitle("Test button - LOAD", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.contentHorizontalAlignment = .center
-        //button.backgroundColor = UIColorFromRGB(rgbValue: 0x29085B)
         button.backgroundColor = UIColorFromRGB(rgbValue: 0xB64326)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12
@@ -34,8 +33,6 @@ class ViewController: UIViewController {
         button.setTitle("Test button - DELETE", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.contentHorizontalAlignment = .center
-        //button.backgroundColor = UIColorFromRGB(rgbValue: 0x29085B)
-        //button.backgroundColor = UIColorFromRGB(rgbValue: 0xB64326)
         button.backgroundColor = UIColorFromRGB(rgbValue: 0x000066)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12
@@ -49,13 +46,10 @@ class ViewController: UIViewController {
         table.dataSource = self
         table.delegate = self
         table.prefetchDataSource = self
-        //table.backgroundColor = .magenta
         table.backgroundColor = UIColorFromRGB(rgbValue: 0xFF4500)
         table.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.reuseId)
         return table
     }()
-
-    //let albumVM: AlbumViewModelType = AlbumViewModel(networkManager: NetworkManager())
     
     let albumVM = AlbumViewModel(networkManager: NetworkManager())
     
@@ -65,7 +59,6 @@ class ViewController: UIViewController {
         
         self.albumVM.bind {
             DispatchQueue.main.async {
-                //print(self.albumVM.getAlbumInfo() ?? "No albums found.")
                 self.albumTableView.reloadData()
             }
         }
@@ -74,7 +67,6 @@ class ViewController: UIViewController {
     }
     
     private func setUpUI() {
-        //self.view.backgroundColor = .white
         self.view.backgroundColor = UIColorFromRGB(rgbValue: 0xFFA07A)
         self.view.addSubview(self.testButton)
         self.view.addSubview(self.testButton2)
@@ -83,53 +75,30 @@ class ViewController: UIViewController {
         self.testButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
         self.testButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
         self.testButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -8).isActive = true
-        //self.testButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
         self.testButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
         self.testButton2.topAnchor.constraint(equalTo: self.testButton.bottomAnchor, constant: 8).isActive = true
         self.testButton2.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
         self.testButton2.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -8).isActive = true
-        //self.testButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
         self.testButton2.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
         self.albumTableView.topAnchor.constraint(equalTo: self.testButton2.bottomAnchor, constant: 16).isActive = true
-        //self.albumTableView.topAnchor.constraint(equalTo: self.view.te.topAnchor, constant: 8).isActive = true
         self.albumTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
         self.albumTableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -8).isActive = true
         self.albumTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
         
     }
     
-//    @objc
-//    func makePressed(sender: Any) {
-//
-//    }
     
     @objc
     func testButtonPressed(sender: UIButton) {
         print("\n\n\nTest button was tapped!!!")
-        //print(self.albumVM.getAlbumInfo())
-        //var stringString = self.albumVM.loadAlbum()
-        //print(self.albumVM.loadAlbum())
-        
-        //print("\n\n\n ##############################################################")
-        //print(self.albumVM.getAllMatchingItems())
-        
-//        //Current working implementation to fetch single static album
-//        print("\n\n\n gg# ##############################################################")
-//        guard let gg = self.albumVM.getAllMatchingItems() else {return}
-//        print(gg)
-        
         
         let allAlbums: [MusicAlbum] = self.albumVM.manager.findAll()
-        //print(self.albumVM.findAllVM())
+
         if allAlbums.count > 0 {
-            //print("Album name: \(allAlbums[0].albumName)")
+
             for element in allAlbums {
-//                print("\nArtist name: \(element.artistName!)")
-//                print("Album name: \(element.albumName!)")
-//                print("Image Data code: \(element.albumImage!)\n\n\n")
-                // Image? -> FavoritesView: show Array of All Elements in CoreData
                 
                 let tempArtistName: String = element.artistName ?? "Unknown artist"
                 let tempAlbumName: String = element.albumName ?? "Unknown album"
@@ -145,17 +114,14 @@ class ViewController: UIViewController {
         else {
             print("No albums registered in CoreData")
         }
-        //print(allAlbums)
         
     }
     
     @objc
     func testButton2Pressed(sender: UIButton) {
         print("Test button 2 was tapped!!!")
-        //print("#### \(self.albumVM.deleteAlbum())")
         
         self.albumVM.deleteAll()
-        //self.albumVM.manager.newDelete()
     }
     
     func UIColorFromRGB(rgbValue: UInt) -> UIColor {
@@ -173,7 +139,6 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return self.movieVM.count
         return self.albumVM.count
     }
 
@@ -185,13 +150,10 @@ extension ViewController: UITableViewDataSource {
         artistNameCache[indexPath.row] = albumVM.artistName(for: indexPath.row)
         albumNameCache[indexPath.row] = albumVM.albumName(for: indexPath.row)
         
-        //imageCache[indexPath.row] = albumVM.albumImage(for: indexPath.row)
-        //tempImageCache: [String]
         albumVM.albumImage(for: indexPath.row) { imageData in
             guard let imageData = imageData else { return }
 
             DispatchQueue.main.async {
-                //self.posterImageView.image = UIImage(data: imageData)
                 self.imageCache[indexPath.row] = imageData
             }
         }
@@ -207,9 +169,7 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-//        let lastIndexPath = IndexPath(row: self.movieVM.count - 1, section: 0)
-//        guard indexPaths.contains(lastIndexPath) else { return }
-//        self.movieVM.getMovies()
+
     }
     
     
