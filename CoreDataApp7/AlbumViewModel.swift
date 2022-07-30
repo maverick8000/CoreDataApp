@@ -40,14 +40,6 @@ class AlbumViewModel: AlbumViewModelType {
     
     private var updateHandler: (() -> Void)?
     
-//    init(manager: CoreDataManager = CoreDataManager()) {
-//        self.manager = manager
-//    }
-//
-//    init(networkManager: NetworkService) {
-//        self.networkManager = networkManager
-//    }
-    
     init(networkManager: NetworkService, manager: CoreDataManager = CoreDataManager()) {
         self.networkManager = networkManager
         self.manager = manager
@@ -67,7 +59,6 @@ class AlbumViewModel: AlbumViewModelType {
             
             switch result {
             case .success(let page):
-                //print(page)
                 
                 print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
                 print(page.feed.results)
@@ -170,21 +161,11 @@ extension AlbumViewModel {
         self.musicAlbum = nil
     }
     
-    //func getAllMatchingItems() -> [MusicAlbum]? {
     func getAllMatchingItems() -> String? {
         
-        //let musicAlbumTemp: [MusicAlbum]?
-        //musicAlbumTemp = self.manager.fetchAll()
-        
-        //return self.manager.fetchAll()
-        
-        print("\n\n\n gg# \n\n\n")
         guard let musicAlbumTemp = self.manager.fetchSingle() else {
-            //return error
-            print("\n\n\n WTF6# \n\n\n")
             return "no matches found"
         }
-        print("\n\n\n gg7# \n\n\n")
         
         if musicAlbumTemp.count > 0
         {

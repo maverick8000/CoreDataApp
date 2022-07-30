@@ -11,7 +11,6 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
             super.viewDidLoad()
-            //delegate = self
         }
 
         override func viewWillAppear(_ animated: Bool) {
@@ -20,7 +19,6 @@ class TabBarViewController: UITabBarController {
             let item2 = FavoritesViewController()
             let icon2 = UITabBarItem(tabBarSystemItem: .favorites, tag: 2)
             
-            //item1.tabBarItem = UIImage(systemName: "house")
             item2.tabBarItem = icon2
             
             item1.title = "Home"
@@ -29,9 +27,7 @@ class TabBarViewController: UITabBarController {
             let controllers = [item1, item2]  //array of the root view controllers displayed by the tab bar interface
 
             if let tabBarItem1 = self.tabBarController?.tabBar.items?[0] {
-                        //tabBarItem1.title = "house"
                         tabBarItem1.image = UIImage(systemName: "house - This String doesn't matter")
-                        //tabBarItem1.selectedImage = UIImage(systemName: "m.square")
                 item1.tabBarItem = tabBarItem1
                     }
             item1.tabBarItem.image = UIImage(systemName: "house")

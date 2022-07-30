@@ -15,6 +15,8 @@ class DetailViewController: UIViewController {
         detailImageView.translatesAutoresizingMaskIntoConstraints = false
         detailImageView.contentMode = .scaleAspectFit
         detailImageView.backgroundColor = .black
+        detailImageView.layer.cornerRadius = 37.5
+        detailImageView.layer.masksToBounds = true
         return detailImageView
         
     }()
