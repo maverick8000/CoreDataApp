@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     lazy var testButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Test button - LOAD", for: .normal)
+        button.setTitle("Test button - Core Data LOAD ALL", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.contentHorizontalAlignment = .center
         button.backgroundColor = UIColorFromRGB(rgbValue: 0xB64326)
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     lazy var testButton2: UIButton = {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Test button - DELETE", for: .normal)
+        button.setTitle("Test button - Core Data DELETE ALL", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.contentHorizontalAlignment = .center
         button.backgroundColor = UIColorFromRGB(rgbValue: 0x000066)
@@ -95,6 +95,8 @@ class ViewController: UIViewController {
         print("\n\n\nTest button was tapped!!!")
         
         let allAlbums: [MusicAlbum] = self.albumVM.manager.findAll()
+        
+        self.albumVM.getAllMatchingItems()
 
         if allAlbums.count > 0 {
 
@@ -121,7 +123,8 @@ class ViewController: UIViewController {
     func testButton2Pressed(sender: UIButton) {
         print("Test button 2 was tapped!!!")
         
-        self.albumVM.deleteAll()
+        //self.albumVM.deleteAll()
+        self.albumVM.manager.newDeleteAll2()
     }
     
     func UIColorFromRGB(rgbValue: UInt) -> UIColor {

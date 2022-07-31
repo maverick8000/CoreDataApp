@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 import CoreData
 
 class CoreDataManager {
@@ -119,23 +120,64 @@ class CoreDataManager {
                 //Handle error
                 print("#### Error")
             }
+        }
+        
+    }
+    
+    func newDeleteAll() -> Void {
+     
+        let context = self.persistentContainer.viewContext
+        
+        let request: NSFetchRequest<MusicAlbum> = MusicAlbum.fetchRequest()
+        
+        do {
+            let results = try context.fetch(request)
+            
+            while results.first != nil {
+                
+                if let album = results.first {
+                    deleteAlbum(album)
+                }
+                else
+                {
+                    break
+                }
+            }
+
         } catch {
-            //return nil
-            print("#### Error")
+            print(error)
+        }
+        
+    }
+    
+    func newDeleteAll2() -> Void {
+        
+        var albums: [MusicAlbum] = []
+        let context = self.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<MusicAlbum> = MusicAlbum.fetchRequest()
+        
+        do {
+            albums = try context.fetch(fetchRequest)
+            for n in albums{
+                deleteAlbum(n)
+            }
+            
+        } catch {
+            print("Unable to Fetch Workouts, (\(error))")
         }
         
     }
     
     func fetchSingle() -> [MusicAlbum]? {
         
-        print("\n\n\n gg# \n\n\n")
+        //print("\n\n\n gg# \n\n\n")
         
         // Create a fetch request with a string filter
         // for an entity’s name
         let fetchRequest: NSFetchRequest<MusicAlbum>
         fetchRequest = MusicAlbum.fetchRequest()
 
-        print("\n\n\n gg# \n\n\n")
+        //print("\n\n\n gg# \n\n\n")
         fetchRequest.predicate = NSPredicate(
             format: "artistName LIKE %@", "Drake"
         )
@@ -143,15 +185,15 @@ class CoreDataManager {
         // Get a reference to a NSManagedObjectContext
         let context = persistentContainer.viewContext
 
-        print("\n\n\n gg# \n\n\n")
+        //print("\n\n\n gg# \n\n\n")
         // Perform the fetch request to get the objects
         // matching the predicate
         do {
-            print("\n\n\n gg# \n\n\n")
+            //print("\n\n\n gg# \n\n\n")
         let objects = try context.fetch(fetchRequest)
             return objects
         } catch {
-            print("\n\n\n gg# \n\n\n")
+            //print("\n\n\n gg# \n\n\n")
             return nil
         }
         
